@@ -7,7 +7,10 @@ plugins {
 android {
     namespace = "com.sitepat.merchant_app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // NDK dinonaktifkan: tidak ada plugin/kode aplikasi yang mengompilasi kode native.
+    // Mengaktifkan baris ini memaksa AGP mengunduh NDK (~ratusan MB) + accept lisensinya,
+    // padahal tidak terpakai. Aktifkan kembali HANYA jika menambah plugin berkode native.
+    // ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -19,7 +22,8 @@ android {
         applicationId = "com.sitepat.merchant_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        // flutter_nfc_kit mensyaratkan Android SDK 24; jaga minSdk minimal 24.
+        minSdk = maxOf(24, flutter.minSdkVersion)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
